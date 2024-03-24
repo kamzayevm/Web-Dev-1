@@ -18,6 +18,7 @@ export class AlbumDetailComponent implements OnInit{
 
   album!: Album
   loaded = false
+  editableTitle: string = '';
 
   constructor(private route: ActivatedRoute, private albumService: AlbumService, private router: Router) {
   }
@@ -25,6 +26,7 @@ export class AlbumDetailComponent implements OnInit{
   ngOnInit() {
     this.getAlbums()
     console.log(this.album)
+    this.editableTitle = this.album.title;
   }
 
   getAlbums(){
@@ -43,6 +45,7 @@ export class AlbumDetailComponent implements OnInit{
 
   updateAlbum() {
     this.albumService.updateAlbum(this.album).subscribe(updatedAlbum => {
+      this.album.title = this.editableTitle;
       window.alert('Album updated successfully!');
     });
   }
